@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class StaffTransaction extends Transaction {
 	private String byStaff;

@@ -53,7 +53,7 @@ public class Account {
 	@NotNull
 	private long customerId;
 //	@OneToMany(cascade = CascadeType.ALL)
-	private List<Transaction> transactions;
+//	private List<Transaction> transactions;
 	
 	
 }

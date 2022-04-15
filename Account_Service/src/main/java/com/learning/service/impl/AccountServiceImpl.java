@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.learning.entity.Account;
-import com.learning.entity.Customer;
 import com.learning.entity.Transaction;
 import com.learning.enums.EnabledStatus;
 import com.learning.exception.AccountCreationException;
@@ -54,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
 		newAccount.setAccountStatus(EnabledStatus.ENABLED);
 		newAccount.setCustomerId(customerID);
 		newAccount.setDateOfCreation(LocalDate.now());
-		newAccount.setTransactions(new ArrayList<Transaction>());
+//		newAccount.setTransactions(new ArrayList<Transaction>());
 		newAccount = accountRepo.save(newAccount);
 		
 		// System.out.println(newAccount.getCustomerId());
@@ -155,7 +154,7 @@ public class AccountServiceImpl implements AccountService {
 				response.setAccountType(x.getAccountType());
 				response.setBalance(x.getAccountBalance());
 				response.setStatus(x.getAccountStatus());
-				response.setTransactions(x.getTransactions());
+//				response.setTransactions(x.getTransactions());
 				return response;
 			}
 		}
@@ -190,7 +189,7 @@ public class AccountServiceImpl implements AccountService {
 		response.setBalance(account.getAccountBalance());
 		GetCustomerResponse currentCustomer = proxy.retrieveCustomer(account.getCustomerId());
 		response.setCustomerName(currentCustomer.getFullName());
-		response.setTransactions(account.getTransactions());
+//		response.setTransactions(account.getTransactions());
 		return response;
 	}
 	

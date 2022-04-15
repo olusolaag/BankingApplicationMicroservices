@@ -29,12 +29,12 @@ public class Transaction {
 	//private TransactionType type;
 	private long fromAccountNum;
 	private long toAccountNum;
-	@ManyToOne
+//	@ManyToOne
 	@NotNull
 	@JsonIgnore
 	private Account fromAccount;
 	
-	@ManyToOne
+//	@ManyToOne
 	@NotNull
 	@JsonIgnore
 	private Account toAccount;
