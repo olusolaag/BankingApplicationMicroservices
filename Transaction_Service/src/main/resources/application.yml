@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: banking_account_microservices
+  datasource:
+    url: jdbc:mysql://localhost:3306/banking_account_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    
+    hibernate:
+      naming:
+        physical-strategy: com.learning.utils.CustomNamingStrategy
+      ddl-auto: update
+
+server:
+  port: 9015
+
+
+#com:
+#  learning:
+#    jwtSecret: bankapp
+#    jwtExpirationMs: 86400000
+
+
