@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,11 +20,19 @@ import com.learning.service.TransactionService;
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
+	
 	@Autowired
 	TransactionService transactionService;
 	
+	@Autowired
+	KafkaTemplate<String, String> kafka;
+	
+	@Autowired
+	KafkaListenerEndpointRegistry endpointRegistry;
+	
 	@PutMapping("/customer/transfer")
 	public ResponseEntity<?> transferFunds(@Valid @RequestBody TransferRequest request) {
+		
 		return ResponseEntity.status(200).body(transactionService.transferFunds(request));
 	}
 	

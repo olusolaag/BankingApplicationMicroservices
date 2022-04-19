@@ -3,9 +3,9 @@ package com.learning.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.learning.entity.Account;
+import com.learning.entity.Transaction;
 
 @Repository
-public interface TransactionRepo extends JpaRepository<Account, Long>{
+public interface TransactionRepo extends JpaRepository<Transaction, Long>{
 
 }

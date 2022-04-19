@@ -21,7 +21,7 @@ public class LogAspect {
 		//LOGGER.info("before advice called");
 	}
 	
-	@After("execution(* com.learning.controller.CustomerController.*(..))")
+	@After("execution(* com.learning.controller.TransactionController.*(..))")
 	public void logRestController2() {
 		//LOGGER.info("After advice called");
 	}
