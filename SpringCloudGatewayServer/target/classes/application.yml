@@ -1,0 +1,32 @@
+server:
+  port: 8765
+  
+spring:
+  cloud:
+    gateway:
+      routes:
+        #Route Mapping
+      - id: banking-account-microservices               #RouteIdentifier
+        uri: http://localhost:9015/         #Respective microservice URL which needs to be mapped
+         #Request Context Path Mapping
+        predicates:
+        - Path=/api/customer/**
+        - Path=/api/staff/**          
+        
+        #Route Mapping - With out Filters - Version 2 Request
+      - id: banking-customer-microservice
+        uri: http://localhost:9001/
+        predicates:
+        - Path=/api/customer/**
+
+        #Route Mapping - With Filters - Version 1 Request
+      #- id: orderMicroservice
+      #  uri: http://localhost:9001/
+       # predicates:
+       # - Path=/ecommerce/** 
+       # filters:
+       # - RewritePath=/ecommerce, /ecommerceV2/      #Rewriting the path 
+        
+        # PreFilter - AddRequestHeader=custom-Request-header, customer-Request-header-value
+        # PostFilter - AddResponseHeader=custom-Request-header, customer-Response-header-value
+        
