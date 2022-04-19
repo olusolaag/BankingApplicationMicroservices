@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+
 public class Beneficiary {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

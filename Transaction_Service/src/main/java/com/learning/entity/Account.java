@@ -26,7 +26,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
 @Table
 public class Account {
 	@Id
@@ -52,7 +51,7 @@ public class Account {
 	 */
 	@NotNull
 	private long customerId;
-	@OneToMany(cascade = CascadeType.ALL)
+//	@OneToMany(cascade = CascadeType.ALL)
 	private List<Transaction> transactions;
 	
 	

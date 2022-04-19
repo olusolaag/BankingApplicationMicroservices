@@ -2,7 +2,7 @@ spring:
   application:
     name: banking_account_microservices
   datasource:
-    url: jdbc:mysql://localhost:3306/banking_account_db
+    url: jdbc:mysql://localhost:3306/banking_transaction_db
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -18,7 +18,7 @@ spring:
       ddl-auto: update
 
 server:
-  port: 9015
+  port: 8100
 
 
 #com:

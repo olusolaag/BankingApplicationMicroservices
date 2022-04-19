@@ -5,25 +5,41 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.learning.enums.EnabledStatus;
-import com.learning.enums.RoleName;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Customer extends User {
+public class Customer{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@NotBlank
+	@Column(unique=true)
+	private String username;
+	@NotBlank
+	private String fullname;
+	@NotBlank
+	@JsonIgnore
+	private String password;
 
 	private String phone;
 	
@@ -40,11 +56,10 @@ public class Customer extends User {
 	private String secretAnswer;
 	
 	private LocalDate createdDate;
-		
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<Account> accounts = new HashSet<>();
 	
-	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-	@JoinColumn(name="id", referencedColumnName = "id")
-	private Set<Beneficiary> beneficiaries = new HashSet<>();
+	private EnabledStatus status = EnabledStatus.ENABLED;
+
+//	private Set<Account> accounts = new HashSet<>();
+	
+//	private Set<Beneficiary> beneficiaries = new HashSet<>();
 }
