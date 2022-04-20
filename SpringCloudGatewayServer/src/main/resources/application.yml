@@ -2,6 +2,9 @@ server:
   port: 8765
   
 spring:
+  redis:
+    port: 6379
+    host: localhost
   cloud:
     gateway:
       routes:
