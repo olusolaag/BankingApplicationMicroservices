@@ -2,6 +2,7 @@ package com.spring.cloud.gateway.SpringCloudGatewayServer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,11 +30,11 @@ public class SpringCloudGatewayServerApplication {
 	@PostConstruct
 	public void initKeysToRedis() {
 		List<ApiKey> apiKeys = new ArrayList<>();
-		apiKeys.add(new ApiKey("343C-ED08-4137-B27E", Stream.of(
+		apiKeys.add(new ApiKey(UUID.randomUUID().toString(), Stream.of(
 				AppConstants.ACCOUNT_SERVICE_KEY).collect(Collectors.toList())));
-		apiKeys.add(new ApiKey("FA48-EF0C-427E-8CCF", Stream.of(
+		apiKeys.add(new ApiKey(UUID.randomUUID().toString(), Stream.of(
 				AppConstants.TRANSACTION_SERVICE_KEY).collect(Collectors.toList())));
-		apiKeys.add(new ApiKey("AMDT-ED0C-657E-AKJC", Stream.of(
+		apiKeys.add(new ApiKey(UUID.randomUUID().toString(), Stream.of(
 				AppConstants.CUSTOMER_SERVICE_KEY).collect(Collectors.toList())));
 		
 		List<Object> lists = redisHashComponent.hValues(AppConstants.RECORD_KEY);
