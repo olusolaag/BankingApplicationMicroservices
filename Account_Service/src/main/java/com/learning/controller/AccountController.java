@@ -20,7 +20,7 @@ import com.learning.service.AccountService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/account-service")
 public class AccountController {
 
 	@Autowired

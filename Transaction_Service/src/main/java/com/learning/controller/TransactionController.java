@@ -18,7 +18,7 @@ import com.learning.service.TransactionService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/transaction-service")
 public class TransactionController {
 	
 	@Autowired

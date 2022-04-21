@@ -13,14 +13,19 @@ spring:
         uri: http://localhost:9015/         #Respective microservice URL which needs to be mapped
          #Request Context Path Mapping
         predicates:
-        - Path=/api/customer/**
-        - Path=/api/staff/**          
+        - Path=/api/account-service/**        
         
         #Route Mapping - With out Filters - Version 2 Request
       - id: banking-customer-microservice
         uri: http://localhost:9001/
         predicates:
         - Path=/api/customer/**
+        
+        #Route Mapping - With out Filters - Version 2 Request
+      - id: banking-transaction-microservice
+        uri: http://localhost:9001/
+        predicates:
+        - Path=/api/transaction-service/**
 
         #Route Mapping - With Filters - Version 1 Request
       #- id: orderMicroservice
