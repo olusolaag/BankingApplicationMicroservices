@@ -8,27 +8,37 @@ spring:
   redis:
     port: 6379
     host: localhost
-#  cloud:
-#    gateway:
-#      routes:
-#        #Route Mapping
-#      - id: banking-account-microservices               #RouteIdentifier
-#        uri: http://localhost:9015/         #Respective microservice URL which needs to be mapped
-#         #Request Context Path Mapping
-#        predicates:
-#        - Path=/api/account-service/**        
-#        
-#        #Route Mapping - With out Filters - Version 2 Request
-#      - id: banking-customer-microservice
-#        uri: http://localhost:9001/
-#        predicates:
-#        - Path=/api/customer/**
-#        
-#        #Route Mapping - With out Filters - Version 2 Request
-#      - id: banking-transaction-microservice
-#        uri: http://localhost:9001/
-#        predicates:
-#        - Path=/api/transaction-service/**
+    
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registery: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+    
+  cloud:
+    gateway:
+      routes:
+        #Route Mapping
+      - id: banking-account-microservices               #RouteIdentifier
+        uri: http://localhost:9015/         #Respective microservice URL which needs to be mapped
+         #Request Context Path Mapping
+        predicates:
+          - Path=/api/account-service/**        
+        
+        #Route Mapping - With out Filters - Version 2 Request
+      - id: banking-customer-microservice
+        uri: http://localhost:9001/
+        predicates:
+          - Path=/api/customer/**
+        
+        #Route Mapping - With out Filters - Version 2 Request
+      - id: banking-transaction-microservice
+        uri: http://localhost:9001/
+        predicates:
+          - Path=/api/transaction-service/**
 
         #Route Mapping - With Filters - Version 1 Request
       #- id: orderMicroservice
