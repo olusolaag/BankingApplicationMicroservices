@@ -22,8 +22,8 @@ server:
   
 eureka:
   client:
+    enabled: false #if you don't want to run with eureka server
     register-with-eureka: true
-    fetch-registery: true
     service-url:
       defaultZone: http://localhost:8761/eureka/
   instance:
