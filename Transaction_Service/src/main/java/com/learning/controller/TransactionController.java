@@ -16,9 +16,13 @@ import com.learning.payload.request.TransferRequest;
 import com.learning.payload.request.TransferRequestStaff;
 import com.learning.service.TransactionService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/transaction-service")
+@Api
 public class TransactionController {
 	
 	@Autowired
@@ -30,6 +34,7 @@ public class TransactionController {
 	@Autowired
 	KafkaListenerEndpointRegistry endpointRegistry;
 	
+	@ApiOperation("testing")
 	@PutMapping("/customer/transfer")
 	public ResponseEntity<?> transferFunds(@Valid @RequestBody TransferRequest request) {
 		
