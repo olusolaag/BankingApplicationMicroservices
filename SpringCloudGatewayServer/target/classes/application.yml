@@ -8,50 +8,56 @@ spring:
   redis:
     port: 6379
     host: localhost
-  cloud:
-    gateway:
-       routes:
-        #Route Mapping
-         - id: banking-account-microservices               #RouteIdentifier
-           uri: http://localhost:9015/         #Respective microservice URL which needs to be mapped
-         #Request Context Path Mapping
-           predicates:
-             - Path=/api/account-service/**   
-           filters:
-             - name: CircuitBreaker
-               args:
-                 name: banking-account-microservices
-                 fallbackuri: forward:/accountFallBack 
-      
-        
-        #Route Mapping - With out Filters - Version 2 Request
-         - id: banking-customer-microservice
-           uri: http://localhost:9001/
-           predicates:
-             - Path=/api/customer/**
-           filters:
-             - name: CircuitBreaker
-               args:
-                 name: banking-customer-microservice
-                 fallbackuri: forward:/customerFallBack 
-        
-        #Route Mapping - With out Filters - Version 2 Request
-         - id: banking-transaction-microservice
-           uri: http://localhost:9001/
-           predicates:
-             - Path=/api/transaction-service/**
-           filters:
-             - name: CircuitBreaker
-               args:
-                 name: banking-transaction-microservice
-                 fallbackuri: forward:/transactionFallBack  
+#  cloud:
+#    gateway:
+#       routes:
+#        #Route Mapping
+#         - id: banking-account-microservice               #RouteIdentifier
+#           uri: http://localhost:9015/         #Respective microservice URL which needs to be mapped
+#         #Request Context Path Mapping
+#           predicates:
+#             - Path=/api/account-service/**   
+#           filters:
+#             - name: CircuitBreaker
+#               args:
+#                 name: banking-account-microservice
+#                 fallbackuri: forward:/accountFallBack 
+#      
+#        
+#        #Route Mapping - With out Filters - Version 2 Request
+#         - id: banking-customer-microservice
+#           uri: http://localhost:9001/
+#           predicates:
+#             - Path=/api/customer/**
+#           filters:
+#             - name: CircuitBreaker
+#               args:
+#                 name: banking-customer-microservice
+#                 fallbackuri: forward:/customerFallBack 
+##        
+#        #Route Mapping - With out Filters - Version 2 Request
+#         - id: banking-transaction-microservice
+#           uri: http://localhost:9001/
+#           predicates:
+#             - Path=/api/transaction-service/**
+#           filters:
+#             - name: CircuitBreaker
+#               args:
+#                 name: banking-transaction-microservice
+#                 fallbackuri: forward:/transactionFallBack  
    
 management:
   endpoints:
     web:
       exposure:
         include: hystrix.stream
-    
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    circuitbreakers:
+      enabled: true
+
 eureka:
   client:
     register-with-eureka: true
@@ -61,7 +67,90 @@ eureka:
   instance:
     hostname: localhost
     
-
+#resilience4j.circuitbreaker:
+#    instances:
+#       banking-account-microservice:
+#            registerHealthIndicator: true
+#            slidingWindowSize: 10
+#       banking-customer-microservice:
+#            registerHealthIndicator: true
+#            slidingWindowSize: 10
+##       banking-transaction-microservice:
+##            registerHealthIndicator: true
+##            slidingWindowSize: 10
+#            permittedNumberOfCallsInHalfOpenState: 3
+#            slidingWindowType: COUNT_BASED
+#            minimumNumberOfCalls: 20
+#            waitDurationInOpenState: 50s
+#            failureRateThreshold: 50
+#            eventConsumerBufferSize: 10
+#            recordFailurePredicate: io.github.robwin.exception.RecordFailurePredicate
+            
+#resilience4j.retry:
+#    instances:
+#        banking-account-microservice:
+#            maxAttempts: 3
+#            waitDuration: 10s
+#            enableExponentialBackoff: true
+#            exponentialBackoffMultiplier: 2
+#            retryExceptions:
+#                - org.springframework.web.client.HttpServerErrorException
+#                - java.io.IOException
+#            ignoreExceptions:
+#                - io.github.robwin.exception.BusinessException
+#        banking-customer-microservice:
+#            maxAttempts: 3
+#            waitDuration: 10s
+#            retryExceptions:
+#                - org.springframework.web.client.HttpServerErrorException
+#                - java.io.IOException
+#            ignoreExceptions:
+#                - io.github.robwin.exception.BusinessException
+#        banking-transaction-microservice:
+#            maxAttempts: 3
+#            waitDuration: 10s
+#            retryExceptions:
+#                - org.springframework.web.client.HttpServerErrorException
+#                - java.io.IOException
+#            ignoreExceptions:
+#                - io.github.robwin.exception.BusinessException
+#                
+#resilience4j.bulkhead:
+#    instances:
+#        backendA:
+#            maxConcurrentCalls: 10
+#        backendB:
+#            maxWaitDuration: 10ms
+#            maxConcurrentCalls: 20
+#            
+#resilience4j.thread-pool-bulkhead:
+#  instances:
+#    backendC:
+#      maxThreadPoolSize: 1
+#      coreThreadPoolSize: 1
+#      queueCapacity: 1
+        
+#resilience4j.ratelimiter:
+#    instances:
+#        backendA:
+#            limitForPeriod: 10
+#            limitRefreshPeriod: 1s
+#            timeoutDuration: 0
+#            registerHealthIndicator: true
+#            eventConsumerBufferSize: 100
+#        backendB:
+#            limitForPeriod: 6
+#            limitRefreshPeriod: 500ms
+#            timeoutDuration: 3s
+#            
+#resilience4j.timelimiter:
+#    instances:
+#        backendA:
+#            timeoutDuration: 2s
+#            cancelRunningFuture: true
+#        backendB:
+#            timeoutDuration: 1s
+#            cancelRunningFuture: false
 
         #Route Mapping - With Filters - Version 1 Request
       #- id: orderMicroservice
