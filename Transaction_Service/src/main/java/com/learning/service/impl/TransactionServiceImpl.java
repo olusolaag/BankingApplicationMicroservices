@@ -22,7 +22,30 @@ public class TransactionServiceImpl implements TransactionService {
 	
 	@Override
 	public String staffTransferFunds(TransferRequestStaff request) {
-//		StaffTransaction transaction = new StaffTransaction();
+		
+		// Retrieve the transaction information from request
+		StaffTransaction transaction = new StaffTransaction();
+		transaction.setFromAccountNum(request.getFromAccount());
+		transaction.setToAccountNum(request.getToAccount());
+		transaction.setAmount(request.getAmount());
+		transaction.setDateTime(LocalDateTime.now());
+		transaction.setReference(request.getReason());
+		transaction.setByStaff(request.getByStaff());
+		
+		// Call Account microservice to get the balance from fromAccount and ToAccount
+		
+		// Subtract amount from fromAccount's balance.
+		
+		// Check whether the amount is available
+		
+		// Add amount to toAccount's balance.
+		
+		// Save the affected accounts.
+		
+		// Save the corresponding transaction
+		transactionRepo.save(transaction);
+		
+		
 //		// First, retrieve the appropriate accounts.
 //		Account fromAccount = transactionRepo.findById(request.getFromAccount())
 //				.orElseThrow(() -> new NoDataFoundException("From Account Not Valid"));

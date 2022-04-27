@@ -3,6 +3,7 @@ package com.learning.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -34,13 +35,14 @@ public class TransactionController {
 	@Autowired
 	KafkaListenerEndpointRegistry endpointRegistry;
 	
-	@ApiOperation("testing")
-	@PutMapping("/customer/transfer")
+	@ApiOperation("Customer Money Transfer")
+	@PutMapping(value = "/customer/transfer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> transferFunds(@Valid @RequestBody TransferRequest request) {
 		
 		return ResponseEntity.status(200).body(transactionService.transferFunds(request));
 	}
 	
+	@ApiOperation("Staff Money Transfer")
 	@PutMapping("/staff/transfer")
 	public ResponseEntity<?> staffTransfer(@RequestBody TransferRequestStaff request) {
 		return ResponseEntity.ok(transactionService.staffTransferFunds(request));
